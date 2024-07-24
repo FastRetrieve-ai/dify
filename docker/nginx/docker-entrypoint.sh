@@ -35,5 +35,9 @@ envsubst "$env_vars" < /etc/nginx/proxy.conf.template > /etc/nginx/proxy.conf
 
 envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
+# Replace placeholders with actual values
+sed -i 's/__HOST__/$host/g' /etc/nginx/conf.d/default.conf
+sed -i 's/__REQUEST_URI__/$request_uri/g' /etc/nginx/conf.d/default.conf
+
 # Start Nginx using the default entrypoint
 exec nginx -g 'daemon off;'
